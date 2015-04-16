@@ -1,0 +1,11 @@
+---
+
+#
+# Deploy one or more BDR nodes
+#
+
+- hosts: bdrnodes
+  roles:
+    - role: postgres_server
+#    - role: bdr_node
+#      bdr_dbname: bdrtestdb

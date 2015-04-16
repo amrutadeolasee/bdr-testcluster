@@ -1,0 +1,5 @@
+---
+
+- include: postgres_install_git.yml
+- include: initdb.yml
+- include: pg_ctl_start.yml
