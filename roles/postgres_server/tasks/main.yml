@@ -1,5 +1,5 @@
 ---
 
-- include: postgres_install_git.yml
-- include: initdb.yml
-- include: pg_ctl_start.yml
+- include: postgres_install_git.yml tags=postgres_install
+- include: initdb.yml tags=postgres_initdb
+- include: pg_ctl_start.yml tags=postgres_start

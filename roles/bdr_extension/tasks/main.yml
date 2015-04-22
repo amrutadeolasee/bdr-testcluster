@@ -1,0 +1,3 @@
+---
+
+- include: bdr_ext_install_git.yml tags=bdr_ext_install

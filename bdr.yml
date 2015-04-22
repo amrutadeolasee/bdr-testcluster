@@ -6,6 +6,4 @@
 
 - hosts: bdrnodes
   roles:
-    - role: postgres_server
-#    - role: bdr_node
-#      bdr_dbname: bdrtestdb
+    - role: bdr_node

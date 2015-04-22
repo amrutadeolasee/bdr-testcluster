@@ -5,6 +5,12 @@
        reference="{{postgres_git_reference_repo}}"
   when: postgres_git_install
 
+- name: clean build directory if vpath
+  file: state=absent path="{{postgres_git_builddir}}" force=yes
+  when: "postgres_git_builddir != postgres_git_checkout_dir"
+  tags:
+    - postgres_make_clean
+
 - name: make build directory
   file: state=directory path="{{postgres_git_builddir}}"
   when: postgres_git_install
@@ -20,7 +26,9 @@
   shell: "{{postgres_git_make_command}} clean"
   args:
     chdir: "{{postgres_git_builddir}}"
-  when: "{{postgres_git_makeclean|bool and postgres_git_install}}"
+  when: "{{postgres_git_install}}"
+  tags:
+    - postgres_make_clean
 
 - name: make PostgreSQL
   shell: "{{postgres_git_make_command}} {{item}}"
@@ -35,4 +43,3 @@
     chdir: "{{postgres_git_builddir}}"
   with_items: postgres_git_make_install_targets
   when: postgres_git_install
-
