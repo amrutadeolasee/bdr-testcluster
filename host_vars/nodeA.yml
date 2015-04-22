@@ -2,3 +2,4 @@
 
 postgres_port: 5598
 postgres_git_install: true
+bdr_ext_git_install: true

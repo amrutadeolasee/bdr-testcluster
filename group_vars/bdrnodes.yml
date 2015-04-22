@@ -9,7 +9,11 @@ postgres_git_checkout_dir: "/home/craig/tmp/ansible-bdr/pg-src"
 # postgres_git_builddir: "/home/craig/tmp/ansible-bdr/pg-build"
 postgres_git_install_dir: "/home/craig/tmp/ansible-bdr/pg-install"
 postgres_datadir: "/home/craig/tmp/ansible-bdr/pg-data-{{inventory_hostname}}"
+# overridden per-host
 postgres_git_install: false
 
-bdr_ext_git_checkout_dir: "/home/craig/projects/2Q/postgres-bdr-extension"
+bdr_ext_git_reference_repo: "/home/craig/projects/2Q/postgres-bdr-extension"
+bdr_ext_git_checkout_dir: "/home/craig/tmp/ansible-bdr/bdr-ext-src"
 bdr_ext_builddir: "/home/craig/tmp/ansible-bdr/bdr-ext-build"
+# overridden per-host
+bdr_ext_git_install: false
