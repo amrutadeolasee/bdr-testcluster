@@ -43,3 +43,8 @@
     chdir: "{{postgres_git_builddir}}"
   with_items: postgres_git_make_install_targets
   when: postgres_git_install
+
+- name: register install location
+  set_fact:
+    postgres_install_dir: "{{postgres_git_install_dir}}"
+    postgres_bin_dir: "{{postgres_git_install_dir}}/bin"

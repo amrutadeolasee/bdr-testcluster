@@ -17,3 +17,5 @@ bdr_ext_git_checkout_dir: "/home/craig/tmp/ansible-bdr/bdr-ext-src"
 bdr_ext_builddir: "/home/craig/tmp/ansible-bdr/bdr-ext-build"
 # overridden per-host
 bdr_ext_git_install: false
+
+bdr_node_database: "bdr_testdb"
