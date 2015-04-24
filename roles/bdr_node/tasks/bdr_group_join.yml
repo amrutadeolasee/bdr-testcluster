@@ -1,0 +1,12 @@
+---
+#- name: firsthost
+#  debug:
+#    var: groups['bdrnodes'][0]
+#
+#- name: firsthostvars
+#  debug:
+#    var: hostvars[groups['bdrnodes'][0]]
+
+- name: bdr_group_join
+  shell: "{{postgres_install_dir}}/bin/psql -p {{postgres_port}} -U {{postgres_superuser}} {{bdr_node_database}} -qAtw -c \"SELECT bdr.bdr_group_join(local_node_name := '{{inventory_hostname}}', node_external_dsn := 'port={{postgres_port}} user={{postgres_superuser}} dbname={{bdr_node_database}}', join_using_dsn := 'port={{hostvars[groups['bdrnodes'][0]]['postgres_port']}} user={{hostvars[groups['bdrnodes'][0]]['postgres_superuser']}} dbname={{hostvars[groups['bdrnodes'][0]]['bdr_node_database']}}');\""
+  when: inventory_hostname != groups['bdrnodes'][0]

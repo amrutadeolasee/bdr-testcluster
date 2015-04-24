@@ -1,0 +1,10 @@
+---
+
+# TODO: get hostname from facts or config
+# TODO: replication sets
+# TODO: apply delay
+# TODO: Local DSN
+
+- name: bdr_group_create
+  shell: "{{postgres_install_dir}}/bin/psql -p {{postgres_port}} -U {{postgres_superuser}} {{bdr_node_database}} -qAtw -c \"SELECT bdr.bdr_group_create(local_node_name := '{{inventory_hostname}}', node_external_dsn := 'port={{postgres_port}} user={{postgres_superuser}} dbname={{bdr_node_database}}');\""
+  when: inventory_hostname == groups['bdrnodes'][0]

@@ -9,6 +9,10 @@ postgres_git_checkout_dir: "/home/craig/tmp/ansible-bdr/pg-src"
 # postgres_git_builddir: "/home/craig/tmp/ansible-bdr/pg-build"
 postgres_git_install_dir: "/home/craig/tmp/ansible-bdr/pg-install"
 postgres_datadir: "/home/craig/tmp/ansible-bdr/pg-data-{{inventory_hostname}}"
+# TODO
+# This is overridden because we can't see role defaults in cross-host host_vars
+# queries. It can be removed once we add DSN fact collection.
+postgres_superuser: "postgres"
 # overridden per-host
 postgres_git_install: false
 

@@ -15,3 +15,19 @@ Usage
 ---
 
     ansible-playbook bdr.md
+
+
+Some handy debug commands
+---
+
+    - name: debug groups
+      debug:
+        var: groups
+
+    - name: debug host
+      debug:
+        var: host
+
+    - name: debug first host
+      debug:
+        var: hostvars[groups['bdrnodes'][0]]
