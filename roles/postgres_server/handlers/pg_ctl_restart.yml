@@ -1,0 +1,8 @@
+---
+
+- name: Restart PostgreSQL
+  shell: "{{postgres_git_install_dir}}/bin/pg_ctl -D {{postgres_datadir}} restart"
+  environment:
+    PATH: "{{postgres_git_install_dir}}/bin:{{ansible_env.PATH}}"
+    PGPORT: "{{postgres_port|int}}"
+    PGUSER: "{{postgres_superuser}}"

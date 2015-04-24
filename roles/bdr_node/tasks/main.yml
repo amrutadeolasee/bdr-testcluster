@@ -2,6 +2,17 @@
 
 # TODO: Implement a 'psql' module
 
+- meta: flush_handlers
+
+- name: Request PostgreSQL start
+  command: echo requesting PostgreSQL startup
+  notify: Start PostgreSQL
+
+- meta: flush_handlers
+
+- name: CREATE DATABASE
+  command: "{{postgres_install_dir}}/bin/createdb -p {{postgres_port}} -U {{postgres_superuser}} {{bdr_node_database}}"
+
 - name: CREATE EXTENSION btree_gist
   command: "{{postgres_install_dir}}/bin/psql -p {{postgres_port}} -U {{postgres_superuser}} {{bdr_node_database}} -qAtw -c 'CREATE EXTENSION btree_gist;'"
 
