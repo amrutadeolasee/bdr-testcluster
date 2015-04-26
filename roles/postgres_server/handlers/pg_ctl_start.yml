@@ -4,5 +4,4 @@
   shell: "{{postgres_git_install_dir}}/bin/pg_ctl -D {{postgres_datadir}} -w start {% for x in postgres_pg_ctl_start_extra_args %}{{x|quote}} {% endfor %}"
   environment:
     PATH: "{{postgres_git_install_dir}}/bin:{{ansible_env.PATH}}"
-    PGPORT: "{{postgres_port|int}}"
     PGUSER: "{{postgres_superuser}}"
