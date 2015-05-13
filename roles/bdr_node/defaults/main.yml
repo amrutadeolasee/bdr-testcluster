@@ -20,3 +20,8 @@ pg_hba_conf_entries:
   - "local   replication     all                                    trust"
   - "host    replication     all             127.0.0.1/32           trust"
   - "host    replication     all             ::1/128                trust"
+
+bdr_pre_create_sql_template: bdr_pre_create_sql_template.sql.j2
+bdr_post_create_sql_template: bdr_post_create_sql_template.sql.j2
+bdr_pre_join_sql_template: bdr_pre_join_sql_template.sql.j2
+bdr_post_join_sql_template: bdr_post_join_sql_template.sql.j2
