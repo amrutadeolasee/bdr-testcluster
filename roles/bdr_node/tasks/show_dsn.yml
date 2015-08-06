@@ -1,0 +1,4 @@
+---
+
+- name: Node DSN
+  command: echo "Node DSN is port={{postgres_port}} dbname={{bdr_node_database}} user={{postgres_superuser}}"

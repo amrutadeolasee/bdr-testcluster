@@ -6,3 +6,4 @@
 - include: create_db_exts.yml
 - include: bdr_group_create.yml
 - include: bdr_group_join.yml
+- include: show_dsn.yml
