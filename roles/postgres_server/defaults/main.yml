@@ -60,8 +60,8 @@ pg_hba_conf_entries:
 postgres_pg_ctl_start_extra_args: []
 
 # Overrideable template locations
-postgres_conf_d_template: "from_ansible.conf"
-postgres_pg_hba_conf_template: "pg_hba.conf"
+postgres_conf_d_template: "postgres_ansible.conf.j2"
+postgres_pg_hba_conf_template: "pg_hba.conf.j2"
 
 # If provided, template an entire postgresql.conf
 # It'll still have include dir enabled and extra options added
