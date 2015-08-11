@@ -8,23 +8,23 @@
 #    var: hostvars[groups['bdrnodes'][0]]
 
 - name: Template pre-BDR-join SQL script
-  template:  src="{{bdr_pre_join_sql_template}}" dest="{{postgres_install_dir}}/bdr_pre_join.sql"
+  template:  src="{{bdr_pre_join_sql_template}}" dest="{{postgres_install_dir}}/bdr_pre_join_{{inventory_hostname}}.sql"
 
 - name: Execute pre-BDR-join SQL script
-  shell: "{{postgres_install_dir}}/bin/psql -p {{postgres_port}} -U {{postgres_superuser}} {{bdr_node_database}} -qAtw -f {{postgres_install_dir}}/bdr_pre_join.sql"
+  shell: "{{postgres_install_dir}}/bin/psql -p {{postgres_port}} -U {{postgres_superuser}} {{bdr_node_database}} -qAtw -f {{postgres_install_dir}}/bdr_pre_join_{{inventory_hostname}}.sql"
 
 - name: Delete pre-BDR-join SQL script
-  file: path="{{postgres_install_dir}}/bdr_pre_join.sql" state=absent
+  file: path="{{postgres_install_dir}}/bdr_pre_join_{{inventory_hostname}}.sql" state=absent
 
 - name: bdr_group_join
   shell: "{{postgres_install_dir}}/bin/psql -p {{postgres_port}} -U {{postgres_superuser}} {{bdr_node_database}} -qAtw -c \"SELECT bdr.bdr_group_join(local_node_name := '{{inventory_hostname}}', node_external_dsn := 'port={{postgres_port}} user={{postgres_superuser}} dbname={{bdr_node_database}}', join_using_dsn := 'port={{hostvars[groups['bdrnodes'][0]]['postgres_port']}} user={{hostvars[groups['bdrnodes'][0]]['postgres_superuser']}} dbname={{hostvars[groups['bdrnodes'][0]]['bdr_node_database']}}');\""
   when: inventory_hostname != groups['bdrnodes'][0]
 
 - name: Template post-BDR-join SQL script
-  template:  src="{{bdr_post_join_sql_template}}" dest="{{postgres_install_dir}}/bdr_post_join.sql"
+  template:  src="{{bdr_post_join_sql_template}}" dest="{{postgres_install_dir}}/bdr_post_join_{{inventory_hostname}}.sql"
 
 - name: Execute post-BDR-join SQL script
-  shell: "{{postgres_install_dir}}/bin/psql -p {{postgres_port}} -U {{postgres_superuser}} {{bdr_node_database}} -qAtw -f {{postgres_install_dir}}/bdr_post_join.sql"
+  shell: "{{postgres_install_dir}}/bin/psql -p {{postgres_port}} -U {{postgres_superuser}} {{bdr_node_database}} -qAtw -f {{postgres_install_dir}}/bdr_post_join_{{inventory_hostname}}.sql"
 
 - name: Delete post-BDR-join SQL script
-  file: path="{{postgres_install_dir}}/bdr_post_join.sql" state=absent
+  file: path="{{postgres_install_dir}}/bdr_post_join_{{inventory_hostname}}.sql" state=absent
