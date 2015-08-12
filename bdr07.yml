@@ -5,6 +5,7 @@
 #
 
 - hosts: bdrnodes07
+  any_errors_fatal: true
   roles:
     - { role: bdr_07x_node }
     - { role: bdr_check, bdr_check_stage: create_table }

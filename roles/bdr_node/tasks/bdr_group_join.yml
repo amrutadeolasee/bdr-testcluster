@@ -28,3 +28,6 @@
 
 - name: Delete post-BDR-join SQL script
   file: path="{{postgres_install_dir}}/bdr_post_join_{{inventory_hostname}}.sql" state=absent
+
+- name: Wait for the node to be ready
+  shell: "{{postgres_install_dir}}/bin/psql -p {{postgres_port}} -U {{postgres_superuser}} {{bdr_node_database}} -qAtw 'SELECT bdr.bdr_node_join_wait_for_ready();'"
