@@ -9,20 +9,20 @@
   template:  src="{{bdr_pre_create_sql_template}}" dest="{{postgres_datadir}}/bdr_pre_create.sql"
 
 - name: Execute pre-BDR-create SQL script
-  shell: "{{postgres_install_dir}}/bin/psql -p {{postgres_port}} -U {{postgres_superuser}} {{bdr_node_database}} -qAtw -f {{postgres_datadir}}/bdr_pre_create.sql"
+  shell: "{{postgres_install_dir}}/bin/psql '{{bdr_node_dsn}}' -qAtw -f {{postgres_datadir}}/bdr_pre_create.sql"
 
 - name: Delete pre-BDR-create SQL script
   file: path="{{postgres_datadir}}/bdr_pre_create.sql" state=absent
 
 - name: bdr_group_create
-  shell: "{{postgres_install_dir}}/bin/psql -p {{postgres_port}} -U {{postgres_superuser}} {{bdr_node_database}} -qAtw -c \"SELECT bdr.bdr_group_create(local_node_name := '{{inventory_hostname}}', node_external_dsn := 'port={{postgres_port}} user={{postgres_superuser}} dbname={{bdr_node_database}}');\""
+  shell: "{{postgres_install_dir}}/bin/psql '{{bdr_node_dsn}}' -qAtw -c \"SELECT bdr.bdr_group_create(local_node_name := '{{inventory_hostname}}', node_external_dsn := '{{bdr_node_dsn}}');\""
   when: inventory_hostname == groups['bdrnodes'][0]
 
 - name: Template post-BDR-create SQL script
   template:  src="{{bdr_post_create_sql_template}}" dest="{{postgres_datadir}}/bdr_post_create.sql"
 
 - name: Execute post-BDR-create SQL script
-  shell: "{{postgres_install_dir}}/bin/psql -p {{postgres_port}} -U {{postgres_superuser}} {{bdr_node_database}} -qAtw -f {{postgres_datadir}}/bdr_post_create.sql"
+  shell: "{{postgres_install_dir}}/bin/psql '{{bdr_node_dsn}}' -qAtw -f {{postgres_datadir}}/bdr_post_create.sql"
 
 - name: Delete post-BDR-create SQL script
   file: path="{{postgres_datadir}}/bdr_post_create.sql" state=absent

@@ -1,8 +1,8 @@
 - name: CREATE DATABASE
-  command: "{{postgres_install_dir}}/bin/createdb -p {{postgres_port}} -U {{postgres_superuser}} {{bdr_node_database}}"
+  command: "{{postgres_install_dir}}/bin/createdb --maintenance-db='{{bdr_node_dsn}} dbname=postgres' {{bdr_node_database}}"
 
 - name: CREATE EXTENSION btree_gist
-  command: "{{postgres_install_dir}}/bin/psql -p {{postgres_port}} -U {{postgres_superuser}} {{bdr_node_database}} -qAtw -c 'CREATE EXTENSION btree_gist;'"
+  command: "{{postgres_install_dir}}/bin/psql '{{bdr_node_dsn}}' -qAtw -c 'CREATE EXTENSION btree_gist;'"
 
 - name: CREATE EXTENSION bdr
-  command: "{{postgres_install_dir}}/bin/psql -p {{postgres_port}} -U {{postgres_superuser}} {{bdr_node_database}} -qAtw -c 'CREATE EXTENSION bdr;'"
+  command: "{{postgres_install_dir}}/bin/psql '{{bdr_node_dsn}}' -qAtw -c 'CREATE EXTENSION bdr;'"
