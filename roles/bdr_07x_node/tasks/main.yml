@@ -5,6 +5,7 @@
 - include: set_dsn.yml
 - include: start_postgres.yml
 - include: create_db_exts.yml
-- include: bdr_group_create.yml
-- include: bdr_group_join.yml
+- include: stop_postgres.yml
+- include: bdr07_config.yml
+- include: start_postgres.yml
 - include: show_dsn.yml

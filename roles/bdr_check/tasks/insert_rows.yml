@@ -1,0 +1,4 @@
+---
+
+- name: INSERT node name
+  command: "{{postgres_install_dir}}/bin/psql -qAt '{{bdr_node_dsn}}' -c \"INSERT INTO {{bdr_check_table}} (node_name) VALUES ('{{inventory_hostname}}');\" "

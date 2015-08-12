@@ -1,0 +1,10 @@
+---
+
+- include: create_table.yml
+  when: bdr_check_stage == "create_table"
+
+- include: insert_rows.yml
+  when: bdr_check_stage == "insert_rows"
+
+- include: check_rows.yml
+  when: bdr_check_stage == "check_rows"

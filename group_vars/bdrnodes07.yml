@@ -1,15 +1,15 @@
 ---
 
-bdrgroupname: 'bdrnodes'
+bdrgroupname: 'bdrnodes07'
 
 ansible_connection: local
 #postgres_git_url: "git://git.postgresql.org/git/2ndquadrant_bdr.git"
 #postgres_git_ref: "bdr-pg/REL9_4_STABLE"
 postgres_git_reference_repo: "/home/craig/projects/2Q/postgres-bdr"
-postgres_git_checkout_dir: "/home/craig/tmp/ansible-bdr/pg-src"
+postgres_git_checkout_dir: "/home/craig/tmp/ansible-bdr/pg-src-07"
 # vpath build seems broken for bdr-pg
 # postgres_git_builddir: "/home/craig/tmp/ansible-bdr/pg-build"
-postgres_git_install_dir: "/home/craig/tmp/ansible-bdr/pg-install"
+postgres_git_install_dir: "/home/craig/tmp/ansible-bdr/pg-install-07"
 postgres_datadir: "/home/craig/tmp/ansible-bdr/pg-data-{{inventory_hostname}}"
 # TODO
 # This is overridden because we can't see role defaults in cross-host host_vars
@@ -17,11 +17,5 @@ postgres_datadir: "/home/craig/tmp/ansible-bdr/pg-data-{{inventory_hostname}}"
 postgres_superuser: "postgres"
 # overridden per-host
 postgres_git_install: false
-
-bdr_ext_git_reference_repo: "/home/craig/projects/2Q/postgres-bdr-extension"
-bdr_ext_git_checkout_dir: "/home/craig/tmp/ansible-bdr/bdr-ext-src"
-bdr_ext_builddir: "/home/craig/tmp/ansible-bdr/bdr-ext-build"
-# overridden per-host
-bdr_ext_git_install: false
 
 bdr_node_database: "bdr_testdb"

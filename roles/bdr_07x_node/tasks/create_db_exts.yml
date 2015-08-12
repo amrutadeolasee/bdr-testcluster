@@ -1,0 +1,2 @@
+- name: CREATE DATABASE
+  command: "{{postgres_install_dir}}/bin/createdb -p {{postgres_port}} -U {{postgres_superuser}} {{bdr_node_database}}"

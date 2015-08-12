@@ -1,0 +1,7 @@
+- meta: flush_handlers
+
+- name: Request PostgreSQL start
+  command: echo requesting PostgreSQL startup
+  notify: Start PostgreSQL
+
+- meta: flush_handlers

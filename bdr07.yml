@@ -1,0 +1,12 @@
+---
+
+#
+# Deploy one or more BDR nodes
+#
+
+- hosts: bdrnodes07
+  roles:
+    - { role: bdr_07x_node }
+    - { role: bdr_check, bdr_check_stage: create_table }
+    - { role: bdr_check, bdr_check_stage: insert_rows }
+    - { role: bdr_check, bdr_check_stage: check_rows }

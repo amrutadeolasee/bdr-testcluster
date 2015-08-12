@@ -1,0 +1,9 @@
+---
+
+- name: CREATE TABLE bdr_check
+  command: "{{postgres_install_dir}}/bin/psql -qAt '{{bdr_node_dsn}}' -c 'CREATE TABLE {{bdr_check_table}} (node_name text primary key);' "
+  when: groups[bdrgroupname][0] == inventory_hostname
+
+- name: Wait for CREATE TABLE to replicate
+  command: "{{postgres_install_dir}}/bin/psql -qAt0w '{{bdr_node_dsn}}' -c \"SELECT pg_xlog_wait_remote_apply(pg_current_xlog_location(), 0);\""
+  when: groups[bdrgroupname][0] == inventory_hostname

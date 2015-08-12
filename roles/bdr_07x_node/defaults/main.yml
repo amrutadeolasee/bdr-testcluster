@@ -1,6 +1,6 @@
 ---
 postgres_git_url: "git://git.postgresql.org/git/2ndquadrant_bdr.git"
-postgres_git_ref: "bdr-pg/REL9_4_STABLE"
+postgres_git_ref: "old/bdr-REL0_7_STABLE"
 
 postgresql_conf_entries:
   wal_level: "'logical'"
@@ -11,8 +11,6 @@ postgresql_conf_entries:
   max_wal_senders: 100
   track_commit_timestamp: "'on'"
   logging_collector: "'on'"
-  # If you want to default to BDR global sequences:
-  #default_sequenceam: "'bdr'"
 
 pg_hba_conf_entries:
   - "local   all             all                                    trust"
@@ -22,7 +20,4 @@ pg_hba_conf_entries:
   - "host    replication     all             127.0.0.1/32           trust"
   - "host    replication     all             ::1/128                trust"
 
-bdr_pre_create_sql_template: bdr_pre_create_sql_template.sql.j2
-bdr_post_create_sql_template: bdr_post_create_sql_template.sql.j2
-bdr_pre_join_sql_template: bdr_pre_join_sql_template.sql.j2
-bdr_post_join_sql_template: bdr_post_join_sql_template.sql.j2
+bdr07_conf_d_template: "ansible_bdr07.conf.j2"
