@@ -11,6 +11,7 @@ postgresql_conf_entries:
   max_wal_senders: 100
   track_commit_timestamp: "'on'"
   logging_collector: "'on'"
+  log_statement: "'all'"
   # If you want to default to BDR global sequences:
   #default_sequenceam: "'bdr'"
 
