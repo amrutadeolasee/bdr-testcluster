@@ -6,7 +6,6 @@
 
 - hosts: bdrnodes07
   any_errors_fatal: true
-  serial: 1
   roles:
     - { role: bdr_07x_node }
 

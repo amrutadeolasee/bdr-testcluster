@@ -1,4 +1,4 @@
 ---
 
 - name: Node DSN
-  command: echo "Node DSN is {{bdr_node_dsn}}"
+  debug: msg="Node DSN is '{{bdr_node_dsn}}'"

@@ -25,7 +25,6 @@
 
 - name: bdr_group_join
   shell: "{{postgres_install_dir}}/bin/psql '{{bdr_node_dsn}}' -qAtw -c \"SELECT bdr.bdr_group_join(local_node_name := '{{inventory_hostname}}', node_external_dsn := '{{bdr_node_dsn}}', join_using_dsn := '{{bdr_join_target_dsn}}');\""
-  when: inventory_hostname != groups['bdrnodes'][0]
 
 - name: Template post-BDR-join SQL script
   template:  src="{{bdr_post_join_sql_template}}" dest="{{postgres_install_dir}}/bdr_post_join_{{inventory_hostname}}.sql"
