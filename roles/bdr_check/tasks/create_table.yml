@@ -8,6 +8,9 @@
   command: "{{postgres_install_dir}}/bin/psql -qAtw '{{bdr_node_dsn}}' -c \"UPDATE bdr.bdr_nodes SET node_status = node_status;\""
   when: groups[bdrgroupname][0] == inventory_hostname
 
+- name: wait 60s for replay
+  pause: seconds=60
+
 - name: Ensure peers are caught up
   command: "{{postgres_install_dir}}/bin/psql -qAtw '{{bdr_node_dsn}}' -c \"SELECT pg_xlog_wait_remote_apply(pg_current_xlog_location(), 0);\""
   when: groups[bdrgroupname][0] == inventory_hostname
