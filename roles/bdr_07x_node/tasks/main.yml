@@ -2,6 +2,7 @@
 
 # TODO: Implement a 'psql' module
 
+- include: get_sysid.yml
 - include: set_dsn.yml
 - include: start_postgres.yml
 - include: create_db_exts.yml

@@ -1,0 +1,11 @@
+---
+
+- name: Get database system identifier
+  shell: "pg_controldata {{postgres_datadir}} | awk -F : '/^Database system identifier:/ {gsub(/ /,\"\",$2);print $2;}'"
+  environment:
+    PATH: "{{postgres_git_install_dir}}/bin:{{ansible_env.PATH}}"
+  register: bdr07_node_sysid
+
+- name: Print sysid
+  debug: msg="{{bdr07_node_sysid.stdout}}"
+
