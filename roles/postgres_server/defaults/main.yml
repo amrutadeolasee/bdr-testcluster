@@ -6,6 +6,8 @@
 #postgres_datadir:
 #postgres_pgport
 
+postgres_cleanup_only: false
+
 postgres_git_url: "git://git.postgresql.org/git/postgresql.git"
 postgres_git_ref: "master"
 # local path of git repo to use as a reference when cloning, if any
