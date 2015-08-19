@@ -6,6 +6,9 @@
     PATH: "{{postgres_git_install_dir}}/bin:{{ansible_env.PATH}}"
   register: bdr07_node_sysid
 
-- name: Print sysid
-  debug: msg="{{bdr07_node_sysid.stdout}}"
+- name: set bdr_node_sysid fact
+  set_fact:
+    bdr_node_sysid: "{{bdr07_node_sysid.stdout}}"
 
+- name: Print sysid
+  debug: msg="{{bdr_node_sysid}}"
