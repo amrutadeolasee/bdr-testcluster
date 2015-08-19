@@ -1,0 +1,17 @@
+---
+
+# bdr_nodes isn't synced properly on 0.7.x so we've got to do that
+# ourselves, copying from each node to each other node.
+#
+# BDR must be fully up for this part.
+
+- name: update our node name
+  shell: "{{postgres_install_dir}}/bin/psql -qAtw '{{bdr_node_dsn}}' -c \"UPDATE bdr.bdr_nodes SET node_name = '{{inventory_hostname}}' WHERE node_sysid = '{{bdr_node_sysid}}'\""
+
+
+- name: copy our bdr_nodes entry to the other peers
+  shell: "{{postgres_install_dir}}/bin/psql -qAtw '{{bdr_node_dsn}}' -c \"\\copy (SELECT * FROM bdr.bdr_nodes WHERE node_sysid = '{{bdr_node_sysid}}') TO stdout\" | {{postgres_install_dir}}/bin/psql -qAtw '{{hostvars[item]['bdr_node_dsn']}}' -c '\\copy bdr.bdr_nodes FROM stdin'"
+  with_items: "{{ groups[bdrgroupname] }}"
+  when: item != inventory_hostname
+  register: command_result
+  failed_when: command_result.rc > 1
