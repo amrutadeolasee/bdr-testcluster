@@ -15,3 +15,17 @@
   when: item != inventory_hostname
   register: command_result
   failed_when: command_result.rc > 1
+
+- name: wait for sync
+  shell: "{{postgres_install_dir}}/bin/psql -qAtw '{{bdr_node_dsn}}' -c \"SELECT pg_xlog_wait_remote_apply(pg_current_xlog_location(), 0);\""
+
+- name: make sure all nodes got copied
+  shell: "{{postgres_install_dir}}/bin/psql -qAtw '{{bdr_node_dsn}}' -c 'SELECT count(*) FROM bdr.bdr_nodes'"
+  register: command_result
+  failed_when: command_result.rc != 0 or command_result.stdout_lines[0]|trim|int != groups[bdrgroupname]|length
+
+- name: generate bdr.bdr_connections
+  shell: "{{postgres_install_dir}}/bin/psql -qAtw '{{bdr_node_dsn}}' -c \"insert into bdr.bdr_connections(conn_sysid, conn_timeline, conn_dboid, conn_origin_sysid, conn_origin_timeline, conn_origin_dboid, conn_is_unidirectional, conn_dsn) SELECT node_sysid, node_timeline, node_dboid, node_sysid, node_timeline, node_dboid, 'f', 'dsn' FROM bdr.bdr_nodes WHERE node_sysid = '{{bdr_node_sysid}}'\""
+
+- name: wait for sync
+  shell: "{{postgres_install_dir}}/bin/psql -qAtw '{{bdr_node_dsn}}' -c \"SELECT pg_xlog_wait_remote_apply(pg_current_xlog_location(), 0);\""
