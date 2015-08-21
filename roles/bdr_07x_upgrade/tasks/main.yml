@@ -1,3 +1,5 @@
 ---
 
 - include: fixup_nodes.yml
+- include: add_07x_bdr_connections_and_restart.yml
+- include: execute_09x_node_join.yml

@@ -25,4 +25,4 @@
 - hosts: bdrnodes07
   any_errors_fatal: true
   roles:
-    - bdr_07x_upgrade
+    - { role: bdr_07x_upgrade, newbdrgroupname: bdrnodes }
