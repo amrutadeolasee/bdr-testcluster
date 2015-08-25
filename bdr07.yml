@@ -27,11 +27,11 @@
   any_errors_fatal: true
   serial: 1
   roles:
-    - { role: bdr_node, bdr_join: false }
+    - { role: bdr_node, postgres_cleanup: false, bdr_join: false }
 
 # Run fixups on the BDR 0.7 nodes
 
 - hosts: bdrnodes07:bdrnodes
   any_errors_fatal: true
   roles:
-    - { role: bdr_07x_upgrade, newbdrgroupname: bdrnodes, oldbdrgroupname: bdrnodes07 }
+    - { role: bdr_07x_upgrade, postgres_cleanup: false, newbdrgroupname: bdrnodes, oldbdrgroupname: bdrnodes07 }

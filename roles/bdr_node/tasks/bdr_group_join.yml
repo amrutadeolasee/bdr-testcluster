@@ -1,15 +1,15 @@
 ---
 #- name: firsthost
 #  debug:
-#    var: groups['bdrnodes'][0]
+#    var: groups[bdrgroupname][0]
 #
 #- name: firsthostvars
 #  debug:
-#    var: hostvars[groups['bdrnodes'][0]]
+#    var: hostvars[groups[bdrgroupname][0]]
 
 - name: Set bdr_join_target_dsn fact
   set_fact:
-    bdr_join_target_dsn: "port={{hostvars[groups['bdrnodes'][0]]['postgres_port']}} user={{hostvars[groups['bdrnodes'][0]]['postgres_superuser']}} dbname={{hostvars[groups['bdrnodes'][0]]['bdr_node_database']}}"
+    bdr_join_target_dsn: "port={{hostvars[groups[bdrgroupname][0]]['postgres_port']}} user={{hostvars[groups[bdrgroupname][0]]['postgres_superuser']}} dbname={{hostvars[groups[bdrgroupname][0]]['bdr_node_database']}}"
 
 - name: Wait for the target node to be ready to be joined
   shell: "{{postgres_install_dir}}/bin/psql '{{bdr_join_target_dsn}}' -qAtw 'SELECT bdr.bdr_node_join_wait_for_ready();'"

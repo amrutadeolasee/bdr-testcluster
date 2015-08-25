@@ -1,7 +1,7 @@
 ---
 
 - include: stop_postgres.yml
-  when: postgres_cleanup_only
+  when: postgres_cleanup
 
 - include: postgres_install_git.yml tags=postgres_install
   when: not postgres_cleanup_only

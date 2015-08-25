@@ -5,7 +5,7 @@
 - include: start_postgres.yml
 - include: create_db_exts.yml
 - include: bdr_group_create.yml
-  when: bdr_join and inventory_hostname == groups['bdrnodes'][0] and groups['bdrnodes']|length > 1
+  when: bdr_join and inventory_hostname == groups[bdrgroupname][0] and groups[bdrgroupname]|length > 1
 - include: bdr_group_join.yml
-  when: bdr_join and inventory_hostname != groups['bdrnodes'][0]
+  when: bdr_join and inventory_hostname != groups[bdrgroupname][0]
 - include: show_dsn.yml
