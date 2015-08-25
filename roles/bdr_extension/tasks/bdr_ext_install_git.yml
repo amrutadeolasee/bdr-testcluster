@@ -36,3 +36,15 @@
   with_items: bdr_ext_git_make_install_targets
   when: bdr_ext_git_install
 
+- name: get BDR_VERSION
+  shell: "awk '/ BDR_VERSION / { printf($3) }' {{bdr_ext_git_checkout_dir}}/bdr_version.h.in"
+  register: bdr_version_str
+
+- name: get BDR_VERSION_NUM
+  shell: "awk '/ BDR_VERSION_NUM / { printf($3) }' {{bdr_ext_git_checkout_dir}}/bdr_version.h.in"
+  register: bdr_version_num
+
+- name: export extension version
+  set_fact:
+    bdr_version_str: bdr_version_str.stdout|replace("\"","")
+    bdr_version_num: bdr_version_num.stdout

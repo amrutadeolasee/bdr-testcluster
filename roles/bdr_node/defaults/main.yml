@@ -12,6 +12,8 @@ postgresql_conf_entries:
   track_commit_timestamp: "'on'"
   logging_collector: "'on'"
   log_statement: "'all'"
+  log_min_messages: "'debug2'"
+  log_line_prefix: "'%t %p:%l %v:%t %a: '"
   # If you want to default to BDR global sequences:
   #default_sequenceam: "'bdr'"
 
@@ -27,3 +29,6 @@ bdr_pre_create_sql_template: bdr_pre_create_sql_template.sql.j2
 bdr_post_create_sql_template: bdr_post_create_sql_template.sql.j2
 bdr_pre_join_sql_template: bdr_pre_join_sql_template.sql.j2
 bdr_post_join_sql_template: bdr_post_join_sql_template.sql.j2
+
+# Override this to suppress group create/join
+bdr_join: true

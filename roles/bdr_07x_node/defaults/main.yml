@@ -13,6 +13,8 @@ postgresql_conf_entries:
   logging_collector: "'on'"
   log_statement: "'all'"
   log_error_verbosity: "'verbose'"
+  log_min_messages: "'debug2'"
+  log_line_prefix: "'%t %p:%l %v:%t %a: '"
 
 pg_hba_conf_entries:
   - "local   all             all                                    trust"

@@ -1,10 +1,8 @@
 ---
 
+# Deploy the BDR 07 nodes
 #
-# Deploy one or more BDR nodes
-#
-
-- hosts: bdrnodes07
+- hosts: bdrnodes:bdrnodes07
   any_errors_fatal: true
   roles:
     - { role: postgres_server, postgres_cleanup_only: true }
@@ -22,7 +20,18 @@
     - { role: bdr_check, bdr_check_stage: insert_rows }
     - { role: bdr_check, bdr_check_stage: check_rows }
 
-- hosts: bdrnodes07
+# Launch the 0.9.x nodes' servers.
+# Don't bring them up as a node group.
+
+- hosts: bdrnodes
+  any_errors_fatal: true
+  serial: 1
+  roles:
+    - { role: bdr_node, bdr_join: false }
+
+# Run fixups on the BDR 0.7 nodes
+
+- hosts: bdrnodes07:bdrnodes
   any_errors_fatal: true
   roles:
-    - { role: bdr_07x_upgrade, newbdrgroupname: bdrnodes }
+    - { role: bdr_07x_upgrade, newbdrgroupname: bdrnodes, oldbdrgroupname: bdrnodes07 }

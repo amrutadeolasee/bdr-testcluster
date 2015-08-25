@@ -1,5 +1,10 @@
 ---
 
 - include: fixup_nodes.yml
+  when: "inventory_hostname in groups[oldbdrgroupname]"
+
 - include: add_07x_bdr_connections_and_restart.yml
+  when: "inventory_hostname in groups[oldbdrgroupname]"
+
 - include: execute_09x_node_join.yml
+  when: "inventory_hostname in groups[newbdrgroupname]"
