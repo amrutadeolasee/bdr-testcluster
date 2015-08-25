@@ -20,3 +20,4 @@ postgres_superuser: "postgres"
 postgres_git_install: false
 
 bdr_node_database: "bdr_testdb"
+bdr_first_nodename: "{{groups[bdrgroupname][0]}}"

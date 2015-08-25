@@ -1,7 +1,11 @@
 ---
 
+- name: make sure join target exists
+  shell: "/bin/true"
+  failed_when: "{{inventory_hostname not in hostvars}}"
+
 - include: create_table.yml
-  when: bdr_check_stage == "create_table"
+  when: bdr_check_stage == "create_table" and bdr_first_nodename == inventory_hostname
 
 - include: insert_rows.yml
   when: bdr_check_stage == "insert_rows"

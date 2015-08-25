@@ -18,8 +18,7 @@ bdr.connections = '{{ conns | join(',') }}'
 {% for nodename in groups[bdrgroupname] %}
 {%   if nodename != inventory_hostname %}
 bdr.{{nodename}}_dsn = 'port={{hostvars[nodename]['postgres_port']}} user={{hostvars[nodename]['postgres_superuser']}} dbname={{hostvars[nodename]['bdr_node_database']}}'
-{%     if inventory_hostname != groups[bdrgroupname][0] and nodename == groups[bdrgroupname][0] %}
-# clone this node inventory_hostname from {{groups[bdrgroupname][0]}}, the first node
+{%     if inventory_hostname != bdr_first_nodename and nodename == bdr_first_nodename %}
 bdr.{{nodename}}_init_replica = on
 bdr.{{nodename}}_replica_local_dsn = 'port={{postgres_port}} dbname={{bdr_node_database}} user={{postgres_superuser}}'
 
