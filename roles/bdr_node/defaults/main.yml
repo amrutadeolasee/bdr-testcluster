@@ -32,3 +32,4 @@ bdr_post_join_sql_template: bdr_post_join_sql_template.sql.j2
 
 # Override this to suppress group create/join
 bdr_join: true
+bdr_join_only: false

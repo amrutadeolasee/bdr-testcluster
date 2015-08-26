@@ -8,6 +8,7 @@
 
 postgres_cleanup_only: false
 postgres_cleanup: true
+postgres_install: true
 
 postgres_git_url: "git://git.postgresql.org/git/postgresql.git"
 postgres_git_ref: "master"

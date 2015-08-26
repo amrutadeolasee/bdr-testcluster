@@ -4,7 +4,7 @@
   when: postgres_cleanup
 
 - include: postgres_install_git.yml tags=postgres_install
-  when: not postgres_cleanup_only
+  when: postgres_install and not postgres_cleanup_only
 
 - include: initdb.yml tags=postgres_initdb
-  when: not postgres_cleanup_only
+  when: postgres_install and not postgres_cleanup_only

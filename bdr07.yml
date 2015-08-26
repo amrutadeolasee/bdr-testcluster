@@ -11,7 +11,7 @@
   any_errors_fatal: true
   serial: 1
   roles:
-    - { role: bdr_07x_node }
+    - { role: bdr_07x_node, postgres_cleanup: false }
 
 - hosts: bdrnodes07
   any_errors_fatal: true
@@ -31,7 +31,18 @@
 
 # Run fixups on the BDR 0.7 nodes
 
-- hosts: bdrnodes07:bdrnodes
+- hosts: bdrnodes07
   any_errors_fatal: true
+  vars:
+    newbdrgroupname: bdrnodes
+    oldbdrgroupname: bdrnodes07
   roles:
-    - { role: bdr_07x_upgrade, postgres_cleanup: false, newbdrgroupname: bdrnodes, oldbdrgroupname: bdrnodes07 }
+    - { role: bdr_07x_upgrade, postgres_cleanup: false }
+
+- hosts: bdrnodes
+  any_errors_fatal: true
+  vars:
+    # Target the first 0.7.x node for join
+    bdr_first_nodename: nodeA07
+  roles:
+    - { role: bdr_node, postgres_install: false, postgres_cleanup: false, bdr_join_only: true }
