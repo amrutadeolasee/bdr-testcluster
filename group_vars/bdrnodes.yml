@@ -25,7 +25,7 @@ bdr_ext_builddir: "/home/craig/tmp/ansible-bdr/bdr-ext-build"
 # overridden per-host
 bdr_ext_git_install: false
 
-bdr_ext_git_ref: "dev/bdr09_upgrade"
+bdr_ext_git_ref: "bdr-plugin/next"
 
 bdr_node_database: "bdr_testdb"
 bdr_first_nodename: "{{groups[bdrgroupname][0]}}"
