@@ -12,3 +12,6 @@
 
 - include: check_rows.yml
   when: bdr_check_stage == "check_rows"
+
+- include: drop_table.yml
+  when: bdr_check_stage == "drop_table" and bdr_first_nodename == inventory_hostname

@@ -1,0 +1,4 @@
+---
+
+- name: DROP TABLE bdr_check
+  command: "{{postgres_install_dir}}/bin/psql -qAt '{{bdr_node_dsn}}' -c 'DROP TABLE {{bdr_check_table}};' "

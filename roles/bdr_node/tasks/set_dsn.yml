@@ -3,3 +3,10 @@
 - name: export bdr_node_dsn fact
   set_fact:
     bdr_node_dsn: "port={{postgres_port}} dbname={{bdr_node_database}} user={{postgres_superuser}}"
+
+- name: Set bdr_join_target_dsn fact
+  set_fact:
+    bdr_join_target_dsn: "port={{hostvars[bdr_first_nodename]['postgres_port']}} user={{hostvars[bdr_first_nodename]['postgres_superuser']}} dbname={{hostvars[bdr_first_nodename]['bdr_node_database']}}"
+
+- name: Show join target dsn
+  debug: var=bdr_join_target_dsn
