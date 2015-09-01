@@ -16,5 +16,18 @@
 - name: CREATE TABLE bdr_check
   command: "{{postgres_install_dir}}/bin/psql -qAt '{{bdr_node_dsn}}' -c 'CREATE TABLE {{bdr_check_table}} (node_name text primary key);' "
 
+- name: CREATE TABLE bdr_globalseq_check
+  command: >
+    "{{postgres_install_dir}}/bin/psql" -qAt "{{bdr_node_dsn}}" -c "
+     BEGIN;
+     CREATE SEQUENCE {{bdr_check_table}}_globalseq_id_seq USING bdr;
+     CREATE TABLE {{bdr_check_table}}_globalseq (
+         id integer not null default(nextval('{{bdr_check_table}}_globalseq_id_seq')),
+         node_name text primary key
+     );
+     ALTER SEQUENCE {{bdr_check_table}}_globalseq_id_seq OWNED BY {{bdr_check_table}}_globalseq.id;
+     COMMIT;
+     "
+
 - name: Wait for CREATE TABLE to replicate
   command: "{{postgres_install_dir}}/bin/psql -qAtw '{{bdr_node_dsn}}' -c \"SELECT pg_xlog_wait_remote_apply(pg_current_xlog_location(), 0);\""

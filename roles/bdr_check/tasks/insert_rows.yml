@@ -2,3 +2,22 @@
 
 - name: INSERT node name
   command: "{{postgres_install_dir}}/bin/psql -qAt '{{bdr_node_dsn}}' -c \"INSERT INTO {{bdr_check_table}} (node_name) VALUES ('{{inventory_hostname}}');\" "
+
+- name: Wait for global seq to be ready
+  command: >
+    "{{postgres_install_dir}}/bin/psql" -qAt "{{bdr_node_dsn}}" -c "
+    DO
+    LANGUAGE plpgsql
+    $$
+    BEGIN
+      LOOP
+        EXIT WHEN (SELECT amdata FROM {{bdr_check_table}}_globalseq_id_seq) IS NOT NULL;
+        PERFORM pg_sleep(0.5);
+      END LOOP;
+    END;
+    $$;"
+
+- name: INSERT node name (global seq)
+  command: >
+    "{{postgres_install_dir}}/bin/psql" -qAt "{{bdr_node_dsn}}" -c
+    "INSERT INTO {{bdr_check_table}}_globalseq (node_name) VALUES ('{{inventory_hostname}}');"
