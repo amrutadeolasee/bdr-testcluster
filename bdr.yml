@@ -15,9 +15,9 @@
   roles:
     - { role: bdr_node }
 
-#- hosts: bdrnodes
-#  any_errors_fatal: true
-#  roles:
-#    - { role: bdr_check, bdr_check_stage: create_table }
-#    - { role: bdr_check, bdr_check_stage: insert_rows }
-#    - { role: bdr_check, bdr_check_stage: check_rows }
+- hosts: bdrnodes
+  any_errors_fatal: true
+  roles:
+    - { role: bdr_check, bdr_check_stage: create_table }
+    - { role: bdr_check, bdr_check_stage: insert_rows }
+    - { role: bdr_check, bdr_check_stage: check_rows }
