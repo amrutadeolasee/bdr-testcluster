@@ -1,0 +1,24 @@
+---
+- name: Wait for the part target node to be ready
+  shell: "{{postgres_install_dir}}/bin/psql '{{bdr_join_target_dsn}}' -qAtw 'SELECT bdr.bdr_node_join_wait_for_ready();'"
+
+- name: bdr_group_part_by_node_names
+  shell: "{{postgres_install_dir}}/bin/psql '{{bdr_join_target_dsn}}' -qAtw -c \"SELECT bdr.bdr_part_by_node_names(ARRAY['{{inventory_hostname}}']);\""
+
+- name: Make sure we're shown as parted on the remote
+  shell: "{{postgres_install_dir}}/bin/psql '{{bdr_join_target_dsn}}' -qAtw -c \"SELECT node_status FROM bdr.bdr_nodes WHERE node_sysid = '{{bdr_node_sysid}}';\""
+  register: out
+  failed_when: out.stdout|trim != 'k'
+
+- name: Wait for the node termination to be noticed
+  pause: seconds=10
+
+- name: Make sure the slot on the remote is gone
+  shell: "{{postgres_install_dir}}/bin/psql '{{bdr_join_target_dsn}}' -qAtw -c \"SELECT EXISTS (SELECT 1 FROM pg_catalog.pg_replication_slots WHERE slot_name LIKE '%'||'{{bdr_node_sysid}}'||'%');\""
+  register: out
+  failed_when: out.stdout|trim != 'f'
+
+- name: Make sure the replication identifier on the remote is gone
+  shell: "{{postgres_install_dir}}/bin/psql '{{bdr_join_target_dsn}}' -qAtw -c \"SELECT EXISTS (SELECT 1 FROM pg_catalog.pg_replication_identifier WHERE riname LIKE '%'||'{{bdr_node_sysid}}'||'%')\""
+  register: out
+  failed_when: out.stdout|trim != 'f'
