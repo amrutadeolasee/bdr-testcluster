@@ -17,8 +17,3 @@
   shell: "{{postgres_install_dir}}/bin/psql '{{bdr_join_target_dsn}}' -qAtw -c \"SELECT EXISTS (SELECT 1 FROM pg_catalog.pg_replication_slots WHERE slot_name LIKE '%'||'{{bdr_node_sysid}}'||'%');\""
   register: out
   failed_when: out.stdout|trim != 'f'
-
-- name: Make sure the replication identifier on the remote is gone
-  shell: "{{postgres_install_dir}}/bin/psql '{{bdr_join_target_dsn}}' -qAtw -c \"SELECT EXISTS (SELECT 1 FROM pg_catalog.pg_replication_identifier WHERE riname LIKE '%'||'{{bdr_node_sysid}}'||'%')\""
-  register: out
-  failed_when: out.stdout|trim != 'f'
