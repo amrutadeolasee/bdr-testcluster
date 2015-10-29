@@ -1,0 +1,7 @@
+---
+
+postgres_port: 5598
+postgres_9_5_port: 5599
+postgres_9_4_port: 5600
+postgres_git_install: true
+pglogical_ext_git_install: true

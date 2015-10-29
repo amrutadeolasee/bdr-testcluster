@@ -1,0 +1,70 @@
+---
+#git clone master, 9.5 and 9.4 versions of postgresql
+- name: clone or update PostgreSQL git
+  git: repo="{{postgres_git_url}}" dest={{item.dest}}
+       version={{item.version}}
+       reference="{{postgres_git_reference_repo}}"
+  when: postgres_git_install
+  with_items:
+    - { dest: "{{postgres_git_checkout_dir}}", version: "{{postgres_git_ref}}" }
+    - { dest: "{{postgres_9_5_git_checkout_dir}}", version: "{{postgres_9_5_git_ref}}" }
+    - { dest: "{{postgres_9_4_git_checkout_dir}}", version: "{{postgres_9_4_git_ref}}" }
+
+- name: clean build directory if vpath
+  file: state=absent path={{item.path}} force=yes
+  when: item.path != item.dest
+  with_items:
+    - { dest: "{{postgres_git_checkout_dir}}", path: "{{postgres_git_builddir}}" }
+    - { dest: "{{postgres_9_5_git_checkout_dir}}", path: "{{postgres_9_5_git_builddir}}" }
+    - { dest: "{{postgres_9_4_git_checkout_dir}}", path: "{{postgres_9_4_git_builddir}}" }
+  tags:
+    - postgres_make_clean
+
+- name: make build directory
+  file: state=directory path={{item.path}}
+  when: postgres_git_install
+  with_items:
+    - { path: "{{postgres_git_builddir}}" }
+    - { path: "{{postgres_9_5_git_builddir}}" }
+    - { path: "{{postgres_9_4_git_builddir}}" }
+
+- name: configure PostgreSQL
+  shell: "{{item.dest}}/configure --prefix={{item.install_dir|quote}} {% for arg in postgres_git_extra_configure_opts %}{{arg|quote}} {% endfor %}"
+  args:
+    chdir: "{{item.path}}"
+  environment: postgres_git_extra_configure_env
+  when: postgres_git_install
+  with_items:
+    - { dest: "{{postgres_git_checkout_dir}}", install_dir: "{{postgres_git_install_dir}}", path: "{{postgres_git_builddir}}" }
+    - { dest: "{{postgres_9_5_git_checkout_dir}}", install_dir: "{{postgres_9_5_git_install_dir}}", path: "{{postgres_9_5_git_builddir}}" }
+    - { dest: "{{postgres_9_4_git_checkout_dir}}", install_dir: "{{postgres_9_4_git_install_dir}}", path: "{{postgres_9_4_git_builddir}}" }
+
+- name: make clean
+  shell: "{{postgres_git_make_command}} clean"
+  args:
+    chdir: "{{item.path}}"
+  when: "{{postgres_git_install}}"
+  with_items:
+    - { path: "{{postgres_git_builddir}}" }
+    - { path: "{{postgres_9_5_git_builddir}}" }
+    - { path: "{{postgres_9_4_git_builddir}}" }
+  tags:
+    - postgres_make_clean
+
+- name: make PostgreSQL
+  shell: "{{postgres_git_make_command}} {{item[1]}}"
+  args:
+    chdir: "{{item[0]}}"
+  with_nested:
+    - postgres_git_builddirs
+    - postgres_git_make_targets
+  when: postgres_git_install
+
+- name: install PostgreSQL
+  shell: "{{postgres_git_make_command}} {{item[1]}}"
+  args:
+    chdir: "{{item[0]}}"
+  with_nested:
+    - postgres_git_builddirs
+    - postgres_git_make_install_targets
+  when: postgres_git_install

@@ -1,0 +1,37 @@
+---
+
+pglogicalgroupname: 'outputnodes'
+
+ansible_connection: local
+postgres_git_reference_repo: "/var/lib/postgresql/pglogical_store/projects/2Q/postgres-pglogical"
+postgres_datadir: "/var/lib/postgresql/pglogical_store/tmp/ansible-pglogical/pg-data-{{inventory_hostname}}"
+postgres_9_5_datadir: "/var/lib/postgresql/pglogical_store/tmp/ansible-pglogical/pg-data-{{inventory_hostname}}_9_5"
+postgres_9_4_datadir: "/var/lib/postgresql/pglogical_store/tmp/ansible-pglogical/pg-data-{{inventory_hostname}}_9_4"
+
+#artifacts for 'master' version of postgresql
+postgres_git_checkout_dir: "/var/lib/postgresql/pglogical_store/tmp/ansible-pglogical/pg-src"
+postgres_git_install_dir: "/var/lib/postgresql/pglogical_store/tmp/ansible-pglogical/pg-install"
+
+#artifacts for '9.5' version of postgresql
+postgres_9_5_git_checkout_dir: "/var/lib/postgresql/pglogical_store/tmp/ansible-pglogical/pg-src-9-5"
+postgres_9_5_git_install_dir: "/var/lib/postgresql/pglogical_store/tmp/ansible-pglogical/pg-install-9-5"
+
+#artifacts for '9.4' version of postgresql
+postgres_9_4_git_checkout_dir: "/var/lib/postgresql/pglogical_store/tmp/ansible-pglogical/pg-src-9-4"
+postgres_9_4_git_install_dir: "/var/lib/postgresql/pglogical_store/tmp/ansible-pglogical/pg-install-9-4"
+# TODO
+# This is overridden because we can't see role defaults in cross-host host_vars
+# queries. It can be removed once we add DSN fact collection.
+postgres_superuser: "postgres"
+# overridden per-host
+postgres_git_install: false
+postgres_git_extra_configure_opts: ["--enable-debug","--enable-cassert","CFLAGS=-fno-omit-frame-pointer -ggdb -Og"]
+
+pglogical_ext_git_reference_repo: "/var/lib/postgresql/pglogical_store/projects/2Q/postgres-pglogical-extension"
+pglogical_ext_git_checkout_dir: "/var/lib/postgresql/pglogical_store/tmp/ansible-pglogical/pglogical-ext-src"
+pglogical_ext_builddir: "/var/lib/postgresql/pglogical_store/tmp/ansible-pglogical/pglogical-ext-build"
+# overridden per-host
+pglogical_ext_git_install: true
+
+pglogical_ext_git_ref: "master"
+

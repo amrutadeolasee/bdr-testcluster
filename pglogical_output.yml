@@ -1,0 +1,14 @@
+---
+
+#
+# Deploy pglogical_output over postgres_server on nodes and run tests
+#
+
+- hosts: outputnodes
+  any_errors_fatal: true
+  roles:
+    - { role: postgres_server, postgres_cleanup_only: false }
+    - { role: pglogical_output }
+    #- { role: postgres_server, postgres_cleanup_only: true }
+
+

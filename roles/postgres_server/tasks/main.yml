@@ -1,0 +1,5 @@
+---
+
+- include: postgres_install_git.yml tags=postgres_install
+  when: postgres_install and not postgres_cleanup_only
+
