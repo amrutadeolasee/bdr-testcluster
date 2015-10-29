@@ -1,5 +1,0 @@
----
-
-- name: export bdr_node_dsn fact
-  set_fact:
-    bdr_node_dsn: "port={{postgres_port}} dbname={{bdr_node_database}} user={{postgres_superuser}}"

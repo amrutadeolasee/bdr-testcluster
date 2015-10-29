@@ -1,4 +1,0 @@
----
-
-- name: generate conf.d snippet for bdr
-  template: src="{{bdr07_conf_d_template}}" dest="{{postgres_datadir}}/conf.d/bdr07_ansible.conf"

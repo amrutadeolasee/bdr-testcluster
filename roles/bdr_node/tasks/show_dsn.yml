@@ -1,4 +1,0 @@
----
-
-- name: Node DSN
-  debug: msg="Node DSN is '{{bdr_node_dsn}}'"

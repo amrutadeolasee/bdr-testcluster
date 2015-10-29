@@ -1,7 +1,0 @@
----
-
-- include: bdr_ext_install_git.yml tags=bdr_ext_install
-  when: bdr_ext_git_install
-
-- include: bdr_ext_install_rpm.yml
-  when: bdr_ext_rpm_install

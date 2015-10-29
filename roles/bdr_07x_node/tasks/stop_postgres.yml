@@ -1,7 +1,0 @@
-- meta: flush_handlers
-
-- name: Request PostgreSQL stop
-  command: echo requesting PostgreSQL stop
-  notify: Stop PostgreSQL
-
-- meta: flush_handlers

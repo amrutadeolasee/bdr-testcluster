@@ -1,5 +1,0 @@
----
-allow_duplicates: yes
-dependencies:
-    - role: postgres_server
-    - role: bdr_extension
