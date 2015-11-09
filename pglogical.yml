@@ -1,0 +1,14 @@
+---
+
+#
+# Deploy pglogical_output and pglogical over postgres_server on nodes and run regress tests
+#
+
+- hosts: outputnodes
+  any_errors_fatal: true
+  roles:
+    - { role: postgres_server, postgres_cleanup_only: false }
+    - { role: pglogical }
+    #- { role: postgres_server, postgres_cleanup_only: true }
+
+

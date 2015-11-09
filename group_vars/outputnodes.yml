@@ -35,3 +35,11 @@ pglogical_ext_git_install: true
 
 pglogical_ext_git_ref: "master"
 
+
+pglogical_ext_client_git_reference_repo: "/var/lib/postgresql/pglogical_store/projects/2Q/pglogical"
+pglogical_ext_client_git_checkout_dir: "/var/lib/postgresql/pglogical_store/tmp/ansible-pglogical/pglogical-ext--client-src"
+pglogical_ext_client_builddir: "/var/lib/postgresql/pglogical_store/tmp/ansible-pglogical/pglogical-ext-client-build"
+# overridden per-host
+pglogical_ext_client_git_install: true
+
+pglogical_ext_client_git_ref: "master"
