@@ -10,7 +10,6 @@
   when: pglogical_ext_git_install
 
 - name: configure pglogical_output extension - make all
-  #shell: "{{pglogical_ext_git_make_command}} USE_PGXS=1 all"
   shell: "{{pglogical_ext_git_make_command}} USE_PGXS=1 clean && {{pglogical_ext_git_make_command}} USE_PGXS=1 all && {{pglogical_ext_git_make_command}} USE_PGXS=1 install"
   args:
     chdir: "{{pglogical_ext_git_builddir}}"

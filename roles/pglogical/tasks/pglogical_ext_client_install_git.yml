@@ -1,16 +1,15 @@
 ---
-- name: clone or update pglogical extension git
+#- name: clone or update pglogical extension git
   git: repo="{{pglogical_ext_client_git_url}}" dest="{{pglogical_ext_client_git_checkout_dir}}"
        version="{{pglogical_ext_client_git_ref}}"
        reference="{{pglogical_ext_client_git_reference_repo}}"
   when: pglogical_ext_client_git_install
 
-- name: make build directory
+#- name: make build directory
   file: state=directory path="{{pglogical_ext_client_git_builddir}}"
   when: pglogical_ext_client_git_install
 
 - name: configure pglogical extension - make all
-  #shell: "{{pglogical_ext_client_git_make_command}} USE_PGXS=1 all"
   shell: "{{pglogical_ext_client_git_make_command}} USE_PGXS=1 clean && {{pglogical_ext_client_git_make_command}} USE_PGXS=1 all && {{pglogical_ext_client_git_make_command}} USE_PGXS=1 install"
   args:
     chdir: "{{pglogical_ext_client_git_builddir}}"
