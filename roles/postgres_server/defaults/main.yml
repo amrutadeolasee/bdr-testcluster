@@ -27,7 +27,7 @@ postgres_git_extra_configure_opts: []
 #    CC: "ccache gcc"
 postgres_git_extra_configure_env: {}
 
-postgres_git_make_command: "make"
+postgres_git_make_command: "make -s"
 
 postgres_git_make_targets:
   - "all"

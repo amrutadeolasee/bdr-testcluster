@@ -5,7 +5,7 @@
 bdr_ext_git_install: true
 bdr_ext_rpm_install: false
 
-bdr_ext_git_url: "git://git.postgresql.org/git/2ndquadrant_bdr.git"
+bdr_ext_git_url: "git@github.com:2ndQuadrant/bdr.git"
 bdr_ext_git_ref: "bdr-plugin/next"
 bdr_ext_pg_config: "{{postgres_git_install_dir}}/bin/pg_config"
 # local path of git repo to use as a reference when cloning, if any

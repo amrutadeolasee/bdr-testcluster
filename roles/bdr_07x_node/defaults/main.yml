@@ -1,8 +1,8 @@
 ---
-postgres_git_url: "git://git.postgresql.org/git/2ndquadrant_bdr.git"
-postgres_git_ref: "old/bdr-REL0_7_STABLE"
+postgres_git_url: "git@github.com:2ndQuadrant/bdr.git"
+#postgres_git_ref: "old/bdr-REL0_7_STABLE"
 
-postgresql_conf_entries:
+bdr07_postgresql_conf_entries:
   wal_level: "'logical'"
   shared_preload_libraries: "'bdr'"
   max_connections: 200
@@ -16,7 +16,7 @@ postgresql_conf_entries:
   log_min_messages: "'debug2'"
   log_line_prefix: "'%t %p:%l %v:%t %a: '"
 
-pg_hba_conf_entries:
+bdr07_pg_hba_conf_entries:
   - "local   all             all                                    trust"
   - "host    all             all             127.0.0.1/32           trust"
   - "host    all             all             ::1/128                trust"

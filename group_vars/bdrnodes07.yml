@@ -21,3 +21,6 @@ postgres_git_install: false
 
 bdr_node_database: "bdr_testdb"
 bdr_first_nodename: "{{groups[bdrgroupname][0]}}"
+
+postgresql_conf_entries: "{{bdr07_postgresql_conf_entries}}"
+pg_hba_conf_entries: "{{bdr07_pg_hba_conf_entries}}"

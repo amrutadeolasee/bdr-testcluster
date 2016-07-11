@@ -10,3 +10,4 @@
 - include: bdr07_config.yml
 - include: start_postgres.yml
 - include: show_dsn.yml
+- include: confirm_bdr.yml

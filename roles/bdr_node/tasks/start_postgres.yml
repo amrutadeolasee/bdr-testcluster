@@ -1,7 +1,1 @@
-- meta: flush_handlers
-
-- name: Request PostgreSQL start
-  command: echo requesting PostgreSQL startup
-  notify: Start PostgreSQL
-
-- meta: flush_handlers
+- include: roles/postgres_server/handlers/pg_ctl_start.yml

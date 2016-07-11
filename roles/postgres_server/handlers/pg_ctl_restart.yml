@@ -1,7 +1,7 @@
 ---
 
 - name: Restart PostgreSQL
-  shell: "ulimit -c unlimited; {{postgres_git_install_dir}}/bin/pg_ctl -D {{postgres_datadir}} -w -m fast restart"
+  shell: "ulimit -c unlimited; {{postgres_git_install_dir}}/bin/pg_ctl -D {{postgres_datadir}} -m fast -w restart -l {{postgres_datadir}}.log {% for x in postgres_pg_ctl_start_extra_args %}{{x|quote}} {% endfor %}"
   environment:
     PATH: "{{postgres_git_install_dir}}/bin:{{ansible_env.PATH}}"
     PGUSER: "{{postgres_superuser}}"

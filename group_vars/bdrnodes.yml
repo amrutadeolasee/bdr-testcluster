@@ -29,3 +29,6 @@ bdr_ext_git_ref: "bdr-plugin/next"
 
 bdr_node_database: "bdr_testdb"
 bdr_first_nodename: "{{groups[bdrgroupname][0]}}"
+
+postgresql_conf_entries: "{{bdr_postgresql_conf_entries}}"
+pg_hba_conf_entries: "{{bdr_pg_hba_conf_entries}}"

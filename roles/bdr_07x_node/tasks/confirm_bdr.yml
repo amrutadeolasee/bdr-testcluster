@@ -1,0 +1,13 @@
+---
+
+- name: get BDR extension version
+  command: "{{postgres_install_dir}}/bin/psql '{{bdr_node_dsn}}' -qAtw -c \"SELECT bdr.bdr_version()\""
+  register: found_bdr_ext_version
+
+- name: show BDR extension version
+  command: "echo {{found_bdr_ext_version.stdout}}"
+
+- name: make sure bdr schema got autocreated
+  command: "{{postgres_install_dir}}/bin/psql '{{bdr_node_dsn}}' -qAtw -c \"SELECT 'bdr.bdr_nodes'::regclass\""
+
+
