@@ -1,0 +1,3 @@
+---
+
+- include: initdb.yml tags=postgres_initdb

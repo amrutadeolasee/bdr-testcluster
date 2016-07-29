@@ -1,1 +1,8 @@
-- include: roles/postgres_server/handlers/pg_ctl_start.yml
+---
+# Ansible doesn't let one role invoke another role midway though,
+# so we have to depend on the base role's vars then include
+# task snippets.
+#
+# It doesn't inherit task paths either.
+
+- include: roles/postgres_server_start/tasks/pg_ctl_start.yml

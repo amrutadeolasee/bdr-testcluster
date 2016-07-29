@@ -1,0 +1,3 @@
+---
+
+- include: stop_and_delete_postgres.yml

@@ -7,7 +7,7 @@
 - hosts: bdrnodes
   any_errors_fatal: true
   roles:
-    - { role: postgres_server, postgres_cleanup_only: true }
+    - { role: postgres_server_clean }
 
 - hosts: bdrnodes
   any_errors_fatal: true
@@ -21,8 +21,3 @@
     - { role: bdr_check, bdr_check_stage: create_table }
     - { role: bdr_check, bdr_check_stage: insert_rows }
     - { role: bdr_check, bdr_check_stage: check_rows }
-
-#- hosts: nodeB
-#  any_errors_fatal: true
-#  roles:
-#    - { role: bdr_node, postgres_install: false, postgres_cleanup: false, bdr_part_only: true }

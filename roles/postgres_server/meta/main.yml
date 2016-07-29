@@ -1,2 +1,7 @@
 ---
+
 allow_duplicates: yes
+dependencies:
+    - role: postgres_server_clean
+    - role: postgres_server_install
+    - role: postgres_server_start

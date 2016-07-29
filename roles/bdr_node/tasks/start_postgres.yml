@@ -1,1 +1,2 @@
-- include: roles/postgres_server/handlers/pg_ctl_start.yml
+---
+- include: roles/postgres_server_start/tasks/pg_ctl_start.yml
