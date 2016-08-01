@@ -1,0 +1,16 @@
+---
+
+- name: Check BDR version
+  command: "{{postgres_install_dir}}/bin/psql -qAtw '{{bdr_node_dsn}}' -c \"SELECT bdr.bdr_version()\""
+  register: out
+
+- name: Print BDR version
+  debug: "msg=\"BDR version {{out.stdout|trim}}\""
+
+- name: Expecting numeric version
+  debug: var=bdr_check_version_num
+
+- name: Check expected BDR version num if specified
+  command:  "{{postgres_install_dir}}/bin/psql -qAtw '{{bdr_node_dsn}}' -c \"SELECT bdr.bdr_version_num()\""
+  register: out
+  failed_when: "{{bdr_check_version_num|int != 0 and bdr_check_version_num|int != out.stdout|trim|int}}" 

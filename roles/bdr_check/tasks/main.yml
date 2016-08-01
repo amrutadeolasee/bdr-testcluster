@@ -1,5 +1,7 @@
 ---
 
+- include: version.yml
+
 - name: make sure join target exists
   shell: "/bin/true"
   failed_when: "{{inventory_hostname not in hostvars}}"

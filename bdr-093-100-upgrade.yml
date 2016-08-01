@@ -1,0 +1,53 @@
+---
+
+#
+# Deploy one or more BDR nodes
+#
+
+- hosts: bdrnodes
+  any_errors_fatal: true
+  roles:
+    - { role: postgres_server_clean }
+
+- hosts: bdrnodes
+  any_errors_fatal: true
+  serial: 1
+  roles:
+    - { role: bdr_node }
+  vars:
+    bdr_ext_git_ref: 'bdr-plugin/REL0_9_STABLE'
+
+- hosts: bdrnodes
+  any_errors_fatal: true
+  roles:
+    - { role: bdr_check, bdr_check_stage: create_table }
+    - { role: bdr_check, bdr_check_stage: insert_rows }
+    - { role: bdr_check, bdr_check_stage: check_rows }
+  vars:
+    - bdr_check_version_num: '903'
+
+#
+# OK, we've got BDR 0.9.3. Now upgrade to 1.0 by upgrading each node's BDR
+# extension then restarting the node.
+#
+- hosts: bdrnodes
+  any_errors_fatal: true
+  serial: 1
+  roles:
+    - { role: postgres_server_stop }
+    - { role: bdr_extension }
+    - { role: postgres_server_start }
+  vars:
+    bdr_ext_git_ref: 'bdr-plugin/next'
+  
+#
+# Recheck functionality, with extension version update
+#
+- hosts: bdrnodes
+  any_errors_fatal: true
+  roles:
+    - { role: bdr_check, bdr_check_stage: create_table }
+    - { role: bdr_check, bdr_check_stage: insert_rows }
+    - { role: bdr_check, bdr_check_stage: check_rows }
+  vars:
+    - bdr_check_version_num: '10000'

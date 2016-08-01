@@ -13,6 +13,9 @@
 - name: Ensure peers are caught up
   command: "{{postgres_install_dir}}/bin/psql -qAtw '{{bdr_node_dsn}}' -c \"SELECT pg_xlog_wait_remote_apply(pg_current_xlog_location(), 0);\""
 
+- name: Drop tables if they exist
+  command: "{{postgres_install_dir}}/bin/psql -qAt '{{bdr_node_dsn}}' -c 'DROP TABLE IF EXISTS {{bdr_check_table}}, {{bdr_check_table}}_globalseq' "
+
 - name: CREATE TABLE bdr_check
   command: "{{postgres_install_dir}}/bin/psql -qAt '{{bdr_node_dsn}}' -c 'CREATE TABLE {{bdr_check_table}} (node_name text primary key);' "
 

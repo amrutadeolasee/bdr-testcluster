@@ -1,3 +1,5 @@
 ---
 
 bdr_check_table: "bdr_check"
+
+bdr_check_version_num: 0
